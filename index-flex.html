@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link href="https://cdn.bootcss.com/normalize/8.0.1/normalize.min.css" rel="stylesheet">
+    <style>
+        .row {
+            display: flex;
+        }
+        .row .h-200 {
+            height: 200px;
+            border: 1px solid #000;
+        }
+        .row-1 .w1 {
+            width: 200px;
+        }
+        .row-1 .w2 {
+            flex: 1;
+        }
+        .row-1 .w3 {
+            width: 200px;
+        }
+        .row-2 .w1 {
+            width: 200px;
+        }
+        .row-2 .w2 {
+            width: 200px;
+        }
+        .row-2 .w3 {
+            flex: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="row row-1">
+        <div class="h-200 w1"></div>
+        <div class="h-200 w2"></div>
+        <div class="h-200 w3"></div>
+    </div>
+    <div class="row row-2">
+        <div class="h-200 w1"></div>
+        <div class="h-200 w2"></div>
+        <div class="h-200 w3"></div>
+    </div>
+
+</body>
+</html>
