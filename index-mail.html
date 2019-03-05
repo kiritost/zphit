@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="email" class="wrapper">
+        <input v-model="message" id="email-input" type="text" list="email-sug-wrapper">
+        <datalist v-if="show" id="email-sug-wrapper" class="email-sug">
+            <option v-for="item of items">
+                {{ message | trim }}@{{ item }}
+            </option>
+        </datalist>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script>
+    var app = new Vue({
+    el: '#email',
+    data:{
+        message: '',
+        show: false,
+        items: ['163.com', 'gmail.com', '126.com', 'qq.com', '263.net']
+    },
+    methods:{},
+    watch:{
+        message (val) {
+            this.show = true;
+            if(!(val.trim() || '')) {
+                this.show = false;
+            }
+            else {
+                this.message = val.trim();
+                if(val.indexOf("@") != -1)
+                    this.show = false;
+            }
+        }
+    }
+    })
+</script>
+</html>
