@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="email" class="wrapper">
+        <input v-model="message" id="email-input" type="text" list="email-sug-wrapper">
+        <datalist v-if="show" id="email-sug-wrapper" class="email-sug">
+            <option v-for="result of results">
+                {{message}}{{flag}}{{ result }}
+            </option>
+        </datalist>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script>
+    var items = ['163.com', 'gmail.com', '126.com', 'qq.com', '263.net'];
+    var results = [];
+    var app = new Vue({
+    el: '#email',
+    data:{
+        message: '',
+        flag: '',
+        show: false
+    },
+    methods:{},
+    watch:{
+        message (val) {
+            this.show = true;
+            this.flag = '@'
+            if(!(val.trim() || '')) {
+                this.show = false;
+            }
+            else
+                this.message = val.trim();
+            if(this.message.indexOf('@') != -1) {
+                this.flag = '';
+            }
+        }
+    },
+    computed:{
+        results: function() {
+            if(this.message.indexOf('@') != -1) {
+                let mes = this.message.slice(this.message.indexOf('@')+1);
+                //console.log(mes);
+                const Mes = items.filter(item => item.indexOf(mes) != -1);
+                const result =[];
+                for(let i of Mes)
+                    result.push(i.slice(mes.length));
+                return result;
+            }
+            return items;
+        }
+    }
+    })
+</script>
+</html>
