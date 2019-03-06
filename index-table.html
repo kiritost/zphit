@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+
+    </style>
+
+</head>
+<body>
+    <div id="app">
+        <div class="input">
+            <input type="checkbox" v-model="checked" v-on:click="checkedAll">全选
+            <input type="checkbox" id="east" value="华东" v-model="checkedNames">
+            <label for="east">华东</label>
+            <input type="checkbox" id="north" value="华北" v-model="checkedNames">
+            <label for="north">华北</label>
+            <input type="checkbox" id="south" value="华南" v-model="checkedNames">
+            <label for="south">华南</label>
+        </div>
+        <div class="input">
+            <input type="checkbox" v-model="checked0" v-on:click="checkedAll0">全选
+            <input type="checkbox" id="phone" value="手机" v-model="checkedNames0">
+            <label for="phone">手机</label>
+            <input type="checkbox" id="computer" value="笔记本" v-model="checkedNames0">
+            <label for="computer">笔记本</label>
+            <input type="checkbox" id="sound" value="智能音箱" v-model="checkedNames0">
+            <label for="sound">智能音箱</label>
+        </div>
+        <br/>
+        <table border="5">
+            <thead>
+                <tr><th v-for="item in colList">{{item}}</th></tr>
+            </thead>
+            <tr v-if = "checkedNames.indexOf(item.region)!=-1 && checkedNames0.indexOf(item.product)!=-1" v-for="item in sourceData">
+                <td :rowspan="flags.length" v-if = "flags.indexOf(item.region) === 0" >{{item.product}}</td>
+                <td >{{item.region}}</td>
+                <td v-for="it in item.sale">{{it}}</td>
+            </tr>
+        </table>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script type="text/javascript">
+    let sourceData = [{
+        product: "手机",
+        region: "华东",
+        sale: [120, 100, 140, 160, 180, 185, 190, 210, 230, 245, 255, 270]
+    }, {
+        product: "手机",
+        region: "华北",
+        sale: [80, 70, 90, 110, 130, 145, 150, 160, 170, 185, 190, 200]
+    }, {
+        product: "手机",
+        region: "华南",
+        sale: [220, 200, 240, 250, 260, 270, 280, 295, 310, 335, 355, 380]
+    }, {
+        product: "笔记本",
+        region: "华东",
+        sale: [50, 60, 80, 110, 30, 20, 70, 30, 420, 30, 20, 20]
+    }, {
+        product: "笔记本",
+        region: "华北",
+        sale: [30, 35, 50, 70, 20, 15, 30, 50, 710, 130, 20, 20]
+    }, {
+        product: "笔记本",
+        region: "华南",
+        sale: [80, 120, 130, 140, 70, 75, 120, 90, 550, 120, 110, 100]
+    }, {
+        product: "智能音箱",
+        region: "华东",
+        sale: [10, 30, 4, 5, 6, 5, 4, 5, 6, 5, 5, 25]
+    }, {
+        product: "智能音箱",
+        region: "华北",
+        sale: [15, 50, 15, 15, 12, 11, 11, 12, 12, 14, 12, 40]
+    }, {
+        product: "智能音箱",
+        region: "华南",
+        sale: [10, 40, 10, 6, 5, 6, 8, 6, 6, 6, 7, 26]
+    }]
+    var app=new Vue({
+        el: '#app',
+        data:{
+            checked: true,
+            checked0: true,
+            checkedNames: ["华东","华北","华南"],
+            flags: ["华东","华北","华南"],
+            checkedNames0: ["手机","笔记本","智能音箱"],
+            colList: ['商品', '地区','1月', '2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'],
+            rowList: ['product','region','sale'],
+            rowsp: [false,false,false,false,false,false,false,false,false],
+        },
+        methods:{
+            checkedAll: function() {
+                var _this=this;
+                if(this.checked) {
+                    _this.checkedNames = [];
+                }else {
+                    _this.checkedNames = ["华东","华北","华南"];
+                }
+            },
+            checkedAll0: function() {
+                var _this=this;
+                if(this.checked0) {
+                    _this.checkedNames0 = [];
+                }else {
+                    _this.checkedNames0 = ["手机","笔记本","智能音箱"];
+                }
+            }
+        },
+        watch:{
+            'checkedNames': {
+                handler: function(val, oldVal) {
+                    console.log(this.checkedNames.length);
+                    console.log(this.checkedNames);
+                    this.flags=[];
+                    if(this.checkedNames.indexOf("华东") != -1)
+                        this.flags.push('华东');
+                    if(this.checkedNames.indexOf("华北") != -1)
+                        this.flags.push('华北');
+                    if(this.checkedNames.indexOf("华南") != -1)
+                        this.flags.push('华南');
+                    console.log(this.flags);
+                    if(this.checkedNames.length === 3)
+                        this.checked=true;
+                    else this.checked=false;
+                },
+                deep: true
+            },
+            'checkedNames0': {
+                handler: function(val, oldVal) {
+                    if(this.checkedNames0.length === 3)
+                        this.checked0=true;
+                    else this.checked0=false;
+                },
+                deep: true
+            }
+        },
+        computed:{}
+    })
+</script>
+
+</html>
