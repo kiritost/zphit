@@ -1,1 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<link href="https://cdn.bootcss.com/normalize/8.0.1/normalize.min.css" rel="stylesheet">
+<style>
+  html,body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+  }
+  #app{
+    width: 100%;
+    height: 100%;
+  }
+  ul,li {
+    margin: 0px;
+    padding: 0px;
+  }
+  a {
+    text-decoration: none;
+  }
+  .head{
+    height: 100%;
+    width: 300px;
+    float: left;
+    min-height: 330px;
+  }
+  .head .ico {
+    position: relative;
+    width: 100px;
+    height: 100%;
+    float: left;
+    background-color: rgb(1,1,37);
+  }
+  .ico .left {
+    margin-top: 0;
+    margin-left: 20px;
+    list-style-type: none;
+  }
+  .ico .left li {
+    padding-top:12px;
+  }
+  .txt_1 span{
+    position: absolute;
+    bottom: 10px;
+    height: 10px;
+    margin-left: 30px;
+  }
+  .head .title {
+    height: 100%;
+    width: 200px;
+    float: left;
+  }
+  .content {
+    margin-left: 300px;
+    height: 100%;
+    position: relative;
+    min-height: 330px;
+  }
+  .content .top {
+    position: relative;
+    width: 100%;
+    height: 70px;
+    min-width: 500px;
+    border-bottom: 1px solid bisque;
+    border-left: 1px solid bisque;
+  }
+  .content .bottom{
+    width: 100%;
+    position: absolute;
+    top: 70px;
+    bottom: 0px;
+    min-width: 500px;
+  }
+  .content .bottom .left {
+    width: 300px;
+    height: 100%;
+    float: left;
+  }
+  .content .bottom .right {
+    margin-left: 300px;
+    height: 100%;
+    min-width: 200px;
+  }
+  .content .top .user {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    height:70px;
+    width: 200px;
+  }
+  .user img{
+    float: left;
+    margin-top: 5px;
+  }
+  .user ul {
+    position: absolute;
+    top: 15px;
+    right: 0px;
+    list-style-type: none;
+    width: 120px;
+  }
+  .content .left {
+    border-right: 1px solid bisque;
+    border-left: 1px solid bisque;
+  }
+  .left .item_0 {
+    width: 100%;
+    height: 100px;
+    border-bottom: 1px solid bisque;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .left .item_1 {
+    position: relative;
+    height: 60px;
+  }
+  .left .item_1 img {
+    float: left;
+    margin-top: 5px;
+    width: 50px;
+    height: 50px;
+  }
+  .left .item_1 ul {
+    margin-top: 10px;
+    float: left;
+    list-style-type:  none;
+  }
+  .left .item_3 {
+    position: absolute;
+    right: 15px;
+    top: 10px;
+  }
+  .search{
+    width: 100%;
+    height: 40px;
+    border-bottom: 1px solid bisque;
+  }
+  .search input {
+    margin-top: 7px;
+    margin-left: 55px;
+  }
+  .right .item_0 {
+    position: relative;
+    width: 100%;
+  }
+  .right .item_1 {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 50px;
+    height: 50px;
+  }
+  .right .item_2 {
+    margin-left: 50px;
+    overflow: hidden;
+    word-wrap : break-word;
+  }
+</style>
+<body>
+  <div id="app">
+    <div class="head">
+      <div class="ico">
+        <ul class="left">
+          <li><a href=""><img src="images/Item_1.png" alt="ico1"></a></li>
+          <li><a href=""><img src="images/Item_2.png" alt="ico2"></a></li>
+          <li><a href=""><img src="images/Item_3.png" alt="ico3"></a></li>
+          <li><a href=""><img src="images/Add_App.png" alt="ico4"></a></li>
+        </ul>
+        <div class="txt_1">
+          <span>
+            <a href=""><img src="images/Grid.png"></a>
+            <a href=""><img src="images/Settings.png"></a>
+          </span>
+        </div>
+      </div>
+      <div class="title">
+        <ul v-for="item in Datas">
+          <li class="menu">{{item.title}}</li>
+          <li class="da" v-for="it in item.datas"><a href="">{{it}}</a></li>
+          <hr v-if="item.flag">
+        </ul>
+      </div>
+    </div>
+    <div class="content">
+      <div class="top">
+        <span class="mes">Message</span>
+        <div class="user">
+          <img src="images/Photo.png">
+          <ul>
+            <li>Jordan J.<br>Administartor</li>
+          </ul>
+        </div>
+      </div>
+      <div class="bottom">
+        <div class="left">
+          <div class="search">
+            <input>
+          </div>
+          <div v-for="items in SourceDatas" class="item_0">
+            <div class="item_1">
+              <img :src="items.img">
+              <ul>
+                <li>{{items.name}}<br>{{items.from}}</li>
+              </ul>
+              <span class="item_3">{{items.time}}</span>
+            </div>
+            <span>{{items.data}}</span>
+          </div>
+        </div>
+        <div class="right">
+          <div class="search"></div>
+          <div class="item_0">
+            <div class="item_1">
+              <img src="images/Avatar photo(2).png">
+            </div>
+            <div class="item_2">
+              <div class="item_3">
+                <span>name-time<br>datadata datadatadatadatadata datadatadatadata datadatadatadatadatadatadatadatadatadatadatadatadatadata</span>
+              </div>
+              <div class="item_4">
+                <img src="images/Photo 1.png">
+                <img src="images/Photo 2.png">
+              </div>
+            </div>
+          </div>
+          <div class="item_0">
+              <div class="item_1">
+                <img src="images/Avatar photo(2).png">
+              </div>
+              <div class="item_2">
+                <div class="item_3">
+                  <span>name-time<br>datadata datadatadatadatadata datadatadatadata datadatadatadatadatadatadatadatadatadatadatadatadatadata</span>
+                </div>
+                <div class="item_4">
+                  <img src="images/Photo 1.png">
+                  <img src="images/Photo 2.png">
+                </div>
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script type="text/javascript">
+  let Datas=[{
+    title: "MENU",
+    datas:["Overview","Sales","Your Staff","Analytics","what's New"],
+    flag:true
+  }, {
+    title:"YOUR PRODUCTS",
+    datas:["Books","Tutorials","Stocks","Infor…"],
+    flag:true
+  }, {
+    title:"DASHBOARD",
+    datas:["Message","Connect","Integra…","Account","App Settings"],
+    flag:false
+  }]; 
 
+  let SourceDatas=[{
+    img: "images/Avatar photo.png",
+    name: "Bessie",
+    time: "3m",
+    from: "Twitter",
+    data:"^^^^^^^!@$%^%&&*&^^^^^^^^^^^^"
+  }, {
+    img: "images/Avatar photo(1).png",
+    name: "Victor",
+    time: "8m",
+    from: "Adobe",
+    data:"^^^^^^^!@$%^%&&*&^^^^^^^^^^^^"
+  }];
+
+  var app = new Vue({
+    el: '#app',
+    data:{},
+    watch:{},
+    methods:{},
+    computed:{}
+  })
+</script>
+</html>
