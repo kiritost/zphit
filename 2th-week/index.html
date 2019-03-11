@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<link href="https://cdn.bootcss.com/normalize/8.0.1/normalize.min.css" rel="stylesheet">
+<style>
+  html,body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+  }
+  ul,h1{
+    margin: 0;
+    padding: 0;
+  }
+  li {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+  .header {
+    position: relative;
+    overflow: hidden;
+    height: 134px;
+    width: 100%;
+    color: #fff;
+  }
+  .header .content-wrapper {
+    position: relative;
+    padding: 24px 12px 18px 24px;
+    font-size: 0;
+  }
+  .header .content-wrapper .avatar {
+    display: inline-block;
+    vertical-align: top;
+  }
+  .header .content-wrapper .content {
+    display: inline-block;
+    font-size: 14px;
+    margin-left: 16px;
+  }
+  .header .content-wrapper .content .title {
+    margin: 2px 0 8px;
+  }
+  .header .content-wrapper .content .title .name {
+    margin-left: 6px;
+    font-size: 16px;
+    line-height: 18px;
+    font-weight: bold;
+  }
+  .header .content-wrapper .content .support {
+    line-height: 12px;
+    font-size: 10px;
+    font-weight: 100;
+    margin: 10px 0 0 0;
+  }
+  .header .content-wrapper .supports-count {
+    position: absolute;
+    right: 12px;
+    bottom: 14px;
+    padding: 0 8px;
+    height: 24px;
+    line-height: 24px;
+    border-radius: 12px;
+    background: rgba(0,0,0,.2);
+  }
+  .header .content-wrapper .supports-count .count {
+    font-size: 10px;
+    vertical-align: top;
+  }
+  .header .bulletin-wrapper {
+    position: relative;
+    background-color: rgba(7,17,27,.2);
+    height: 28px;
+    line-height: 28px;
+    padding: 0 22px 0 12px;
+    white-space: normal;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .header .bulletin-wrapper .bulletin-text {
+    vertical-align: top;
+    margin: 0 4px;
+    font-size: 10px;
+  }
+  .header .background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    filter: blur(10px);
+    height: 100%;
+    width: 100%;
+  }
+  .tab {
+    display: flex;
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    position: relative;
+  }
+  .tab .tab-item {
+    flex: 1;
+    text-align: center;
+  }
+  .tab .tab-item a {
+    display: block;
+    font-size: 14px;
+  }
+  .food {
+    display: flex;
+    position: absolute;
+    width: 100%;
+    top: 174px;
+    bottom: 46px;
+    overflow: hidden;
+  }
+  .food .menu-wrapper {
+    flex: 0 0 80px;
+    width: 80px;
+    background: #f3f5f7;
+  }
+  .food .foods-wrapper {
+    flex: 1;
+  }
+  .food .foods-wrapper .food-list .title {
+    padding-left: 14px;
+    height: 26px;
+    line-height: 26px;
+    border-left: 2px solid #d9dde1;
+    font-size: 12px;
+    color: #93999f;
+    background: #f3f5f7;
+  }
+</style>
+<body>
+  <div id="app">
+    <div class="header">
+      <div class="content-wrapper">
+        <div class="avatar">
+          <img width="64px" height="64px" :src="shop.avatar" />
+        </div>
+        <div class="content">
+          <div class="title">
+            <span class="name">{{shop.name}}</span>
+          </div>
+          <div class="description">{{shop.description}}</div>
+          <div class="support">
+            <span class="icon decrease"></span>
+            <span class="text">{{shop.support}}</span>
+          </div>
+        </div>
+        <div class="supports-count">
+          <span class="count">5个</span>
+        </div>
+      </div>
+      <div class="bulletin-wrapper">
+        <span class="bulletin-title"></span>
+        <span class="bulletin-text">{{shop.bulletin}}</span>
+        <i class="icon"></i>
+      </div>
+      <div class="background">
+        <img width="100%" height="100%" :src="shop.avatar" />
+      </div>
+    </div>
+
+    <div class="tab">
+      <div class="tab-item"> <a>商品</a> </div>
+      <div class="tab-item"> <a>评论</a> </div>
+      <div class="tab-item"> <a>商家</a> </div>
+    </div>
+
+    <div class="food">
+      <div class="menu-wrapper">
+
+      </div>
+      <div class="foods-wrapper">
+        <ul>
+          <li v-for="items in Food" class="food-list food-list-hook">
+            <h1 class="title">{{items.name}}</h1>
+            <ul>
+              <li v-for="item in items.foods">{{item.name}}</li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script type="text/javascript">
+  let shop={
+    name:"粥品香坊（回龙观）",
+    description:"蜂鸟专送/38分钟送达",
+    avatar:'http://static.galileo.xiaojukeji.com/static/tms/seller_avatar_256px.jpg',
+    support:"在线支付满28减5，满50减10",
+    bulletin:"粥品香坊其烹饪粥料的秘方源于中国千年古法，在融和现代制作工艺，由世界烹饪大师屈浩先生领衔研发。坚守纯天然、0添加的良心品质深得消费者青睐，发展至今成为粥类的引领品牌。是2008年奥运会和2013年园博会指定餐饮服务商。"
+  };
+  let Food=[{
+    name:"热销榜",
+    foods:[{
+      name:"皮蛋瘦肉粥",
+      price: 10,
+      description: "咸粥",
+      sellCount: 229,
+      rating: 100,
+      image:"http://fuss10.elemecdn.com/c/cd/c12745ed8a5171e13b427dbc39401jpeg.jpeg?imageView2/1/w/750/h/750"
+    }]
+  }];
+  var app = new Vue({
+    el: '#app',
+    data:{
+    },
+    watch:{},
+    computed:{},
+    methods:{}
+  })
+</script>
+</html>
